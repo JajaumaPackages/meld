@@ -1,9 +1,9 @@
 Name:             meld
 Version:          0.9.5
 Release:          1
-Summary:          Visual diff and merge tool.
+Summary:          Visual diff and merge tool
 
-Group:            Development/Tools  
+Group:            Development/Tools
 License:          GPL
 URL:              http://meld.sourceforge.net/
 Source0:          http://ftp.gnome.org/pub/gnome/sources/meld/0.9/meld-0.9.5.tar.bz2
@@ -12,8 +12,8 @@ Patch0:           desktop.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:    desktop-file-utils
-BuildRequires:	  gettext
-BuildRequires:	  intltool
+BuildRequires:    gettext
+BuildRequires:    intltool
 Requires:         gnome-python2 >= 1.99.14
 Requires:         gnome-python2-canvas
 Requires:         gnome-python2-gconf
@@ -64,7 +64,7 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING 
+%doc AUTHORS COPYING
 %{_bindir}/meld
 %{_datadir}/meld
 %{_datadir}/applications/fedora-meld.desktop
