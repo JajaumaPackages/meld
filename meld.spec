@@ -1,6 +1,7 @@
 Name:             meld
 Version:          0.9.5
-Release:          1
+Release:          2
+
 Summary:          Visual diff and merge tool
 
 Group:            Development/Tools
@@ -72,6 +73,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
+- rebuilt
+
 * Sun Feb 06 2005 Phillip Compton <pcompton[AT]proteinmedia.com> - 0.9.5-1
 - 0.9.5.
 
