@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Meld Diff Viewer
+Type=Application
+Comment=Compare and merge your files.
+Exec=meld
+Icon=meld.png
+Terminal=false
