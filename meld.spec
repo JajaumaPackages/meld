@@ -1,12 +1,12 @@
 Name:             meld
-Version:          0.9.4.1
-Release:          3
+Version:          0.9.5
+Release:          1
 Summary:          Visual diff and merge tool.
 
 Group:            Development/Tools  
 License:          GPL
 URL:              http://meld.sourceforge.net/
-Source0:          http://ftp.gnome.org/pub/gnome/sources/meld/0.9/meld-0.9.4.1.tar.bz2
+Source0:          http://ftp.gnome.org/pub/gnome/sources/meld/0.9/meld-0.9.5.tar.bz2
 Source1:          meld
 Patch0:           desktop.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -49,8 +49,6 @@ install -p -D -m0644 *.py ${RPM_BUILD_ROOT}%{_datadir}/meld/
 install -p -D -m0644 glade2/*.glade* ${RPM_BUILD_ROOT}%{_datadir}/meld/glade2/
 install -p -D -m0644 glade2/pixmaps/* ${RPM_BUILD_ROOT}%{_datadir}/meld/glade2/pixmaps/
 install -p -D -m0644 glade2/pixmaps/icon.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/meld.png
-install -p -D -m0644 manual/manual.html ${RPM_BUILD_ROOT}%{_datadir}/meld/manual/manual.html
-install -p -D -m0644 manual/stylesheet.css ${RPM_BUILD_ROOT}%{_datadir}/meld/manual/stylesheet.css
 install -p -D -m0644 po/*.po ${RPM_BUILD_ROOT}%{_datadir}/meld/po/
 install -p -D -m0755 %{SOURCE1} ${RPM_BUILD_ROOT}%{_bindir}/meld
 
@@ -66,7 +64,7 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING TODO.txt
+%doc AUTHORS COPYING 
 %{_bindir}/meld
 %{_datadir}/meld
 %{_datadir}/applications/fedora-meld.desktop
@@ -74,6 +72,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sun Feb 06 2005 Phillip Compton <pcompton[AT]proteinmedia.com> - 0.9.5-1
+- 0.9.5.
+
 * Thu Nov 11 2004 Phillip Compton <pcompton[AT]proteinmedia.com> - 0.9.4.1-0.fdr.3
 - Clean up spec/Bump release.
 
