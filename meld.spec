@@ -1,6 +1,6 @@
 Name:             meld
 Version:          0.9.4.1
-Release:          0.fdr.3
+Release:          3
 Summary:          Visual diff and merge tool.
 
 Group:            Development/Tools  
