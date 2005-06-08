@@ -1,25 +1,27 @@
 Name:             meld
-Version:          0.9.5
-Release:          2
-
+Version:          0.9.6
+Release:          1%{?dist}
 Summary:          Visual diff and merge tool
 
 Group:            Development/Tools
 License:          GPL
 URL:              http://meld.sourceforge.net/
-Source0:          http://ftp.gnome.org/pub/gnome/sources/meld/0.9/meld-0.9.5.tar.bz2
-Source1:          meld
+Source0:          http://ftp.gnome.org/pub/gnome/sources/meld/0.9/meld-%{version}.tar.bz2
 Patch0:           desktop.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:    desktop-file-utils
 BuildRequires:    gettext
 BuildRequires:    intltool
+BuildRequires:    scrollkeeper
 Requires:         gnome-python2 >= 1.99.14
 Requires:         gnome-python2-canvas
 Requires:         gnome-python2-gconf
 Requires:         pygtk2 >= 1.99.15
 Requires:         pygtk2-libglade
+
+Requires(post):   scrollkeeper
+Requires(postun): scrollkeeper
 
 BuildArch:        noarch
 
@@ -37,43 +39,58 @@ tabbed interface that allows you to open many diffs at once.
 
 
 %build
-make
+make prefix=%{_prefix} libdir=%{_datadir}
 
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
 
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/meld/glade2/pixmaps/
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/meld/po/
-install -p -D -m0755 meld ${RPM_BUILD_ROOT}%{_datadir}/meld/meld
-install -p -D -m0644 *.py ${RPM_BUILD_ROOT}%{_datadir}/meld/
-install -p -D -m0644 glade2/*.glade* ${RPM_BUILD_ROOT}%{_datadir}/meld/glade2/
-install -p -D -m0644 glade2/pixmaps/* ${RPM_BUILD_ROOT}%{_datadir}/meld/glade2/pixmaps/
-install -p -D -m0644 glade2/pixmaps/icon.png ${RPM_BUILD_ROOT}%{_datadir}/pixmaps/meld.png
-install -p -D -m0644 po/*.po ${RPM_BUILD_ROOT}%{_datadir}/meld/po/
-install -p -D -m0755 %{SOURCE1} ${RPM_BUILD_ROOT}%{_bindir}/meld
+make prefix=%{_prefix} libdir=%{_datadir} \
+  DESTDIR=${RPM_BUILD_ROOT} install
 
 desktop-file-install --vendor fedora                    \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications       \
   --add-category X-Fedora                               \
-  meld.desktop
+  --delete-original                                     \
+  ${RPM_BUILD_ROOT}%{_datadir}/applications/meld.desktop
+
+%find_lang %{name}
+
+
+%post
+scrollkeeper-update -q || :
+
+
+%postun
+scrollkeeper-update -q || :
 
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
 
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING
 %{_bindir}/meld
-%{_datadir}/meld
+%{_datadir}/meld/
 %{_datadir}/applications/fedora-meld.desktop
+%{_datadir}/application-registry/%{name}*
 %{_datadir}/pixmaps/meld.png
+%{_datadir}/gnome/help/%{name}/
+%{_datadir}/omf/%{name}/
 
 
 %changelog
-* Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
+* Wed Jun  8 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 0.9.6-1
+- Remove unused meld shell script from src.rpm.
+- Add scriptlets for scrollkeeper-update.
+- Use %%find_lang macro.
+- Simplify %%install (let included Makefile do the installation).
+- Update to 0.9.6 (fixes manual).
+- BR scrollkeeper (#156235).
+
+* Thu Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 0.9.5-2
 - rebuilt
 
 * Sun Feb 06 2005 Phillip Compton <pcompton[AT]proteinmedia.com> - 0.9.5-1
