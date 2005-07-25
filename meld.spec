@@ -1,13 +1,14 @@
 Name:             meld
-Version:          0.9.6
+Version:          1.0.0
 Release:          1%{?dist}
 Summary:          Visual diff and merge tool
 
 Group:            Development/Tools
 License:          GPL
 URL:              http://meld.sourceforge.net/
-Source0:          http://ftp.gnome.org/pub/gnome/sources/meld/0.9/meld-%{version}.tar.bz2
+Source0:          http://ftp.gnome.org/pub/gnome/sources/meld/1.0/meld-%{version}.tar.bz2
 Patch0:           desktop.patch
+Patch1:           meld-1.0.0-po_fr.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:    desktop-file-utils
@@ -36,6 +37,7 @@ tabbed interface that allows you to open many diffs at once.
 %prep
 %setup -q
 %patch0 -p1 -b .desktop
+%patch1 -p1 -b .po_fr
 
 
 %build
@@ -82,6 +84,10 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Mon Jul 25 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 1.0.0-1
+- Update to 1.0.0.
+- Include fix for upstream bug #309408.
+
 * Wed Jun  8 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 0.9.6-1
 - Remove unused meld shell script from src.rpm.
 - Add scriptlets for scrollkeeper-update.
