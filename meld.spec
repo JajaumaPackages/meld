@@ -1,3 +1,6 @@
+# targeting FC-5
+# spec for FC-4 differs (and could be merged)
+
 Name:             meld
 Version:          1.1.2
 Release:          1%{?dist}
