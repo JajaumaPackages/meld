@@ -2,8 +2,8 @@
 # spec for FC-4 differs (and could be merged)
 
 Name:             meld
-Version:          1.1.2
-Release:          1%{?dist}
+Version:          1.1.3
+Release:          2%{?dist}
 Summary:          Visual diff and merge tool
 
 Group:            Development/Tools
@@ -11,16 +11,17 @@ License:          GPL
 URL:              http://meld.sourceforge.net/
 Source0:          http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
 Patch0:           desktop.patch
+Patch1:		  %{name}-scrollkeeper.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:    desktop-file-utils
 BuildRequires:    gettext
 BuildRequires:    intltool
 BuildRequires:    scrollkeeper
-Requires:         gnome-python2 >= 1.99.14
+Requires:         gnome-python2 >= 2.6.0
 Requires:         gnome-python2-canvas
 Requires:         gnome-python2-gconf
-Requires:         pygtk2 >= 1.99.15
+Requires:         pygtk2 >= 2.6.0
 Requires:         pygtk2-libglade
 
 Requires(post):   scrollkeeper
@@ -39,6 +40,7 @@ tabbed interface that allows you to open many diffs at once.
 %prep
 %setup -q
 %patch0 -p1 -b .desktop
+%patch1 -p1 -b .scrollkeepe
 
 
 %build
@@ -51,17 +53,18 @@ rm -rf ${RPM_BUILD_ROOT}
 make prefix=%{_prefix} libdir=%{_datadir} \
   DESTDIR=${RPM_BUILD_ROOT} install
 
+
 desktop-file-install --vendor fedora                    \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications       \
   --add-category X-Fedora                               \
   --delete-original                                     \
-  ${RPM_BUILD_ROOT}%{_datadir}/applications/meld.desktop
+  ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
 
 
 %post
-scrollkeeper-update -q || :
+scrollkeeper-update -q -o %{_datadir}/omf/%{name} || :
 
 
 %postun
@@ -75,16 +78,31 @@ rm -rf ${RPM_BUILD_ROOT}
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING
-%{_bindir}/meld
-%{_datadir}/meld/
-%{_datadir}/applications/fedora-meld.desktop
+%{_bindir}/%{name}
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/*.py
+%{_datadir}/%{name}/*.pyc
+%ghost %{_datadir}/%{name}/*.pyo
+%dir %{_datadir}/%{name}/vc
+%{_datadir}/%{name}/vc/*.py
+%{_datadir}/%{name}/vc/*.pyc
+%ghost %{_datadir}/%{name}/vc/*.pyo
+%{_datadir}/%{name}/glade2/
+%{_datadir}/applications/fedora-%{name}.desktop
 %{_datadir}/application-registry/%{name}*
-%{_datadir}/pixmaps/meld.png
+%{_datadir}/pixmaps/%{name}.png
 %{_datadir}/gnome/help/%{name}/
 %{_datadir}/omf/%{name}/
 
 
 %changelog
+* Sun Feb  5 2006 Brian Pepple <bdpepple@ameritech.net> - 1.1.3-2
+- Update to 1.1.3.
+- Update scrollkeeper scriptlet.
+- Update versions required for pygtk2 & gnome-python2.
+- Add patch to disable scrollkeeper in Makefile.
+- Ghost the *.pyo.
+
 * Sun Nov 13 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 1.1.2-1
 - Update to 1.1.2.
 
