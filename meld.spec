@@ -3,7 +3,7 @@
 
 Name:             meld
 Version:          1.1.3
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Visual diff and merge tool
 
 Group:            Development/Tools
@@ -96,6 +96,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Mon Feb 13 2006 Brian Pepple <bdpepple@ameritech.net> - 1.1.3-3
+- rebuilt for new gcc4.1 snapshot and glibc changes
+
 * Sun Feb  5 2006 Brian Pepple <bdpepple@ameritech.net> - 1.1.3-2
 - Update to 1.1.3.
 - Update scrollkeeper scriptlet.
