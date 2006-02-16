@@ -3,7 +3,7 @@
 
 Name:             meld
 Version:          1.1.3
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Visual diff and merge tool
 
 Group:            Development/Tools
@@ -16,8 +16,8 @@ BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:    desktop-file-utils
 BuildRequires:    gettext
-BuildRequires:    intltool
 BuildRequires:    scrollkeeper
+
 Requires:         gnome-python2 >= 2.6.0
 Requires:         gnome-python2-canvas
 Requires:         gnome-python2-gconf
@@ -96,6 +96,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Thu Feb 16 2006 Brian Pepple <bdpepple@ameritech.net> - 1.1.3-4
+- Remove unnecessary BR (intltool).
+
 * Mon Feb 13 2006 Brian Pepple <bdpepple@ameritech.net> - 1.1.3-3
 - rebuilt for new gcc4.1 snapshot and glibc changes
 
