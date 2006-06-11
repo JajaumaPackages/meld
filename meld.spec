@@ -1,9 +1,6 @@
-# targeting FC-5
-# spec for FC-4 differs (and could be merged)
-
 Name:             meld
-Version:          1.1.3
-Release:          4%{?dist}
+Version:          1.1.4
+Release:          3%{?dist}
 Summary:          Visual diff and merge tool
 
 Group:            Development/Tools
@@ -40,7 +37,7 @@ tabbed interface that allows you to open many diffs at once.
 %prep
 %setup -q
 %patch0 -p1 -b .desktop
-%patch1 -p1 -b .scrollkeepe
+%patch1 -p1 -b .scrollkeeper
 
 
 %build
@@ -96,6 +93,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sun Jun 11 2006 Brian Pepple <bdpepple@ameritech.net> - 1.1.4-3
+- Update to 1.1.4.
+
 * Thu Feb 16 2006 Brian Pepple <bdpepple@ameritech.net> - 1.1.3-4
 - Remove unnecessary BR (intltool).
 
