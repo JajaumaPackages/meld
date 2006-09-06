@@ -1,30 +1,32 @@
-Name:             meld
-Version:          1.1.4
-Release:          3%{?dist}
-Summary:          Visual diff and merge tool
+Name:		meld
+Version:	1.1.4
+Release:	4%{?dist}
+Summary:	Visual diff and merge tool
 
-Group:            Development/Tools
-License:          GPL
-URL:              http://meld.sourceforge.net/
-Source0:          http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
-Patch0:           desktop.patch
-Patch1:		  %{name}-scrollkeeper.patch
-BuildRoot:        %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Group:		Development/Tools
+License:	GPL
+URL:		http://meld.sourceforge.net/
+Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
+Patch0:		desktop.patch
+Patch1:		%{name}-scrollkeeper.patch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:    desktop-file-utils
-BuildRequires:    gettext
-BuildRequires:    scrollkeeper
+BuildRequires:	desktop-file-utils
+BuildRequires:	gettext
+BuildRequires:	intltool
+BuildRequires:	scrollkeeper
+BuildRequires:	perl(XML::Parser)
 
-Requires:         gnome-python2 >= 2.6.0
-Requires:         gnome-python2-canvas
-Requires:         gnome-python2-gconf
-Requires:         pygtk2 >= 2.6.0
-Requires:         pygtk2-libglade
+Requires:	gnome-python2 >= 2.6.0
+Requires:	gnome-python2-canvas
+Requires:	gnome-python2-gconf
+Requires:	pygtk2 >= 2.6.0
+Requires:	pygtk2-libglade
 
-Requires(post):   scrollkeeper
+Requires(post):	scrollkeeper
 Requires(postun): scrollkeeper
 
-BuildArch:        noarch
+BuildArch:	noarch
 
 %description
 Meld is a GNOME 2 visual diff and merge tool. It integrates especially well
@@ -79,11 +81,11 @@ rm -rf ${RPM_BUILD_ROOT}
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*.py
 %{_datadir}/%{name}/*.pyc
-%ghost %{_datadir}/%{name}/*.pyo
+%{_datadir}/%{name}/*.pyo
 %dir %{_datadir}/%{name}/vc
 %{_datadir}/%{name}/vc/*.py
 %{_datadir}/%{name}/vc/*.pyc
-%ghost %{_datadir}/%{name}/vc/*.pyo
+%{_datadir}/%{name}/vc/*.pyo
 %{_datadir}/%{name}/glade2/
 %{_datadir}/applications/fedora-%{name}.desktop
 %{_datadir}/application-registry/%{name}*
@@ -93,6 +95,11 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Wed Sep  6 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.1.4-4
+- Don't ghost *.pyo files.
+- Add BR for intltool and perl(XML::Parser).
+- Rebuild for FC6.
+
 * Sun Jun 11 2006 Brian Pepple <bdpepple@ameritech.net> - 1.1.4-3
 - Update to 1.1.4.
 
