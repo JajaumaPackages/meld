@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.1.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -95,6 +95,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Fri Dec  8 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.1.4-5
+- Rebuild against new python.
+
 * Wed Sep  6 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.1.4-4
 - Don't ghost *.pyo files.
 - Add BR for intltool and perl(XML::Parser).
