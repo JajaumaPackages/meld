@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.1.4
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -9,6 +9,7 @@ URL:		http://meld.sourceforge.net/
 Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
 Patch0:		desktop.patch
 Patch1:		%{name}-scrollkeeper.patch
+Patch2:		%{name}-gettext.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	desktop-file-utils
@@ -40,6 +41,7 @@ tabbed interface that allows you to open many diffs at once.
 %setup -q
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .scrollkeeper
+%patch2 -p1 -b .gettext
 
 
 %build
@@ -55,7 +57,6 @@ make prefix=%{_prefix} libdir=%{_datadir} \
 
 desktop-file-install --vendor fedora                    \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications       \
-  --add-category X-Fedora                               \
   --delete-original                                     \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
 
@@ -95,6 +96,10 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sat Dec  9 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.1.4-6
+- Drop X-Fedora category from desktop file.
+- Add patch to fix rejects from new version of gettext.
+
 * Fri Dec  8 2006 Brian Pepple <bpepple@fedoraproject.org> - 1.1.4-5
 - Rebuild against new python.
 
