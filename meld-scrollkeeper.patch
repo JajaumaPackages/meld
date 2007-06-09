@@ -1,15 +1,7 @@
-diff -ru meld-1.1.3.OLD/help/C/GNUmakefile meld-1.1.3/help/C/GNUmakefile
---- meld-1.1.3.OLD/help/C/GNUmakefile	2006-01-28 16:43:57.000000000 -0500
-+++ meld-1.1.3/help/C/GNUmakefile	2006-02-05 16:04:32.000000000 -0500
-@@ -6,7 +6,6 @@
- XML_DIR_ := $(DESTDIR)$(helpdir)/meld/$(LANG)
- OMF_NAME := meld-$(LANG).omf
- OMF_DIR_ := $(DESTDIR)$(sharedir)/omf/meld
--OMF_STATE:= $(DESTDIR)$(prefix)/var/lib/scrollkeeper
- 
- .PHONY : all
- all $(OMF_NAME).install : $(OMF_NAME)
-@@ -18,7 +17,6 @@
+diff -ur meld-1.1.5.OLD/help/C/GNUmakefile meld-1.1.5/help/C/GNUmakefile
+--- meld-1.1.5.OLD/help/C/GNUmakefile	2007-06-09 13:29:24.000000000 -0400
++++ meld-1.1.5/help/C/GNUmakefile	2007-06-09 15:15:46.000000000 -0400
+@@ -19,7 +19,6 @@
  	install -m 644 meld.xml $(XML_DIR_)/meld.xml
  	install -m 644 figures/*.png $(XML_DIR_)/figures
  	-install -m 644 $< $(OMF_DIR_)/$(OMF_NAME)
@@ -17,7 +9,26 @@ diff -ru meld-1.1.3.OLD/help/C/GNUmakefile meld-1.1.3/help/C/GNUmakefile
  
  .PHONY : uninstall
  uninstall :
-@@ -27,7 +25,6 @@
+@@ -28,7 +27,6 @@
+ 		$(XML_DIR_)/figures/*.png
+ 	-rmdir $(XML_DIR_)/figures \
+ 		$(XML_DIR_)
+-	-scrollkeeper-update -p $(OMF_STATE) -o $(OMF_DIR_)
+ 
+ .PHONY : clean
+ clean :
+diff -ur meld-1.1.5.OLD/help/es/GNUmakefile meld-1.1.5/help/es/GNUmakefile
+--- meld-1.1.5.OLD/help/es/GNUmakefile	2007-06-09 13:29:25.000000000 -0400
++++ meld-1.1.5/help/es/GNUmakefile	2007-06-09 15:14:36.000000000 -0400
+@@ -19,7 +19,6 @@
+ 	install -m 644 meld.$(LANG).xml $(XML_DIR_)/meld.xml
+ 	install -m 644 figures/*.png $(XML_DIR_)/figures
+ 	-install -m 644 $< $(OMF_DIR_)/$(OMF_NAME)
+-	-scrollkeeper-update -p $(OMF_STATE) -o $(OMF_DIR_)
+ 
+ .PHONY : uninstall
+ uninstall :
+@@ -28,7 +27,6 @@
  		$(XML_DIR_)/figures/*.png
  	-rmdir $(XML_DIR_)/figures \
  		$(XML_DIR_)

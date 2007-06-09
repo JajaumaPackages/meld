@@ -1,6 +1,6 @@
 Name:		meld
-Version:	1.1.4
-Release:	7%{?dist}
+Version:	1.1.5
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -9,7 +9,6 @@ URL:		http://meld.sourceforge.net/
 Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
 Patch0:		desktop.patch
 Patch1:		%{name}-scrollkeeper.patch
-Patch2:		%{name}-gettext.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	desktop-file-utils
@@ -42,7 +41,6 @@ tabbed interface that allows you to open many diffs at once.
 %setup -q
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .scrollkeeper
-%patch2 -p1 -b .gettext
 
 
 %build
@@ -97,6 +95,10 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sat Jun  9 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-1
+- Update to 1.1.5.
+- Drop gettext patch.  fixed upstream.
+
 * Sat Jun  9 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.1.4-7
 - Add requires on yelp.
 
