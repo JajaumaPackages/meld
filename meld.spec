@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.1.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -22,7 +22,6 @@ Requires:	gnome-python2-canvas
 Requires:	gnome-python2-gconf
 Requires:	pygtk2 >= 2.6.0
 Requires:	pygtk2-libglade
-Requires:	yelp
 
 Requires(post):	scrollkeeper
 Requires(postun): scrollkeeper
@@ -95,6 +94,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sun Jun 10 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-2
+- Drop requires on yelp.
+
 * Sat Jun  9 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-1
 - Update to 1.1.5.
 - Drop gettext patch.  fixed upstream.
