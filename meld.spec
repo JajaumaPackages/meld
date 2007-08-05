@@ -1,10 +1,10 @@
 Name:		meld
 Version:	1.1.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
-License:	GPL
+License:	GPLv2+
 URL:		http://meld.sourceforge.net/
 Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
 Patch0:		desktop.patch
@@ -94,6 +94,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sun Aug  5 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-3
+- Update license tag.
+
 * Sun Jun 10 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-2
 - Drop requires on yelp.
 
