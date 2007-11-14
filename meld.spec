@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.1.5
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -20,6 +20,7 @@ BuildRequires:	perl(XML::Parser)
 Requires:	gnome-python2 >= 2.6.0
 Requires:	gnome-python2-canvas
 Requires:	gnome-python2-gconf
+Requires:	gnome-python2-gtksourceview
 Requires:	pygtk2 >= 2.6.0
 Requires:	pygtk2-libglade
 
@@ -94,6 +95,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Wed Nov 14 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-4
+- Add Requires on gnome-python2-gtksourceview to enable syntax coloring. (#382041)
+
 * Sun Aug  5 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-3
 - Update license tag.
 
