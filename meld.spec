@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.1.5
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -9,6 +9,7 @@ URL:		http://meld.sourceforge.net/
 Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
 Patch0:		desktop.patch
 Patch1:		%{name}-scrollkeeper.patch
+Patch2:		%{name}-%{version}-git.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	desktop-file-utils
@@ -41,6 +42,7 @@ tabbed interface that allows you to open many diffs at once.
 %setup -q
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .scrollkeeper
+%patch2 -p1 -b .git
 
 
 %build
@@ -95,6 +97,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Tue Jun  3 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-5
+- Backport git support (#449250).
+
 * Wed Nov 14 2007 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-4
 - Add Requires on gnome-python2-gtksourceview to enable syntax coloring. (#382041)
 
