@@ -1,7 +1,7 @@
-diff -ur meld-1.1.5.OLD/help/C/GNUmakefile meld-1.1.5/help/C/GNUmakefile
---- meld-1.1.5.OLD/help/C/GNUmakefile	2007-06-09 13:29:24.000000000 -0400
-+++ meld-1.1.5/help/C/GNUmakefile	2007-06-09 15:15:46.000000000 -0400
-@@ -19,7 +19,6 @@
+diff -urp meld-1.2.OLD/help/C/GNUmakefile meld-1.2/help/C/GNUmakefile
+--- meld-1.2.OLD/help/C/GNUmakefile	2007-02-17 13:40:05.000000000 -0500
++++ meld-1.2/help/C/GNUmakefile	2008-08-03 10:40:06.000000000 -0400
+@@ -19,7 +19,6 @@ install : $(OMF_NAME).install
  	install -m 644 meld.xml $(XML_DIR_)/meld.xml
  	install -m 644 figures/*.png $(XML_DIR_)/figures
  	-install -m 644 $< $(OMF_DIR_)/$(OMF_NAME)
@@ -9,7 +9,7 @@ diff -ur meld-1.1.5.OLD/help/C/GNUmakefile meld-1.1.5/help/C/GNUmakefile
  
  .PHONY : uninstall
  uninstall :
-@@ -28,7 +27,6 @@
+@@ -28,7 +27,6 @@ uninstall :
  		$(XML_DIR_)/figures/*.png
  	-rmdir $(XML_DIR_)/figures \
  		$(XML_DIR_)
@@ -17,10 +17,10 @@ diff -ur meld-1.1.5.OLD/help/C/GNUmakefile meld-1.1.5/help/C/GNUmakefile
  
  .PHONY : clean
  clean :
-diff -ur meld-1.1.5.OLD/help/es/GNUmakefile meld-1.1.5/help/es/GNUmakefile
---- meld-1.1.5.OLD/help/es/GNUmakefile	2007-06-09 13:29:25.000000000 -0400
-+++ meld-1.1.5/help/es/GNUmakefile	2007-06-09 15:14:36.000000000 -0400
-@@ -19,7 +19,6 @@
+diff -urp meld-1.2.OLD/help/es/GNUmakefile meld-1.2/help/es/GNUmakefile
+--- meld-1.2.OLD/help/es/GNUmakefile	2007-02-17 13:40:05.000000000 -0500
++++ meld-1.2/help/es/GNUmakefile	2008-08-03 10:40:32.000000000 -0400
+@@ -19,7 +19,6 @@ install : $(OMF_NAME).install
  	install -m 644 meld.$(LANG).xml $(XML_DIR_)/meld.xml
  	install -m 644 figures/*.png $(XML_DIR_)/figures
  	-install -m 644 $< $(OMF_DIR_)/$(OMF_NAME)
@@ -28,11 +28,34 @@ diff -ur meld-1.1.5.OLD/help/es/GNUmakefile meld-1.1.5/help/es/GNUmakefile
  
  .PHONY : uninstall
  uninstall :
-@@ -28,7 +27,6 @@
+@@ -28,7 +27,6 @@ uninstall :
  		$(XML_DIR_)/figures/*.png
  	-rmdir $(XML_DIR_)/figures \
  		$(XML_DIR_)
 -	-scrollkeeper-update -p $(OMF_STATE) -o $(OMF_DIR_)
+ 
+ .PHONY : clean
+ clean :
+diff -urp meld-1.2.OLD/help/fr/GNUmakefile meld-1.2/help/fr/GNUmakefile
+--- meld-1.2.OLD/help/fr/GNUmakefile	2008-03-31 16:44:53.000000000 -0400
++++ meld-1.2/help/fr/GNUmakefile	2008-08-03 10:52:07.000000000 -0400
+@@ -17,18 +17,12 @@ all $(OMF_NAME).install : $(OMF_NAME)
+ install : $(OMF_NAME).install
+ 	-mkdir -m 755 -p $(OMF_DIR_) $(XML_DIR_) $(XML_DIR_)/figures
+ 	install -m 644 meld.$(LANG).xml $(XML_DIR_)/meld.xml
+-	install -m 644 figures/*.png $(XML_DIR_)/figures
+ 	-install -m 644 $< $(OMF_DIR_)/$(OMF_NAME)
+-	-scrollkeeper-update -p $(OMF_STATE) -o $(OMF_DIR_)
+ 
+ .PHONY : uninstall
+ uninstall :
+ 	-rm -f $(OMF_DIR_)/$(OMF_NAME) \
+-		$(XML_DIR_)/meld.xml \
+-		$(XML_DIR_)/figures/*.png
+-	-rmdir $(XML_DIR_)/figures \
+-		$(XML_DIR_)
+-	-scrollkeeper-update -p $(OMF_STATE) -o $(OMF_DIR_)
++		$(XML_DIR_)/meld.xml
  
  .PHONY : clean
  clean :

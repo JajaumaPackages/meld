@@ -1,6 +1,6 @@
 Name:		meld
-Version:	1.1.5
-Release:	5%{?dist}
+Version:	1.2
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -9,7 +9,6 @@ URL:		http://meld.sourceforge.net/
 Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
 Patch0:		desktop.patch
 Patch1:		%{name}-scrollkeeper.patch
-Patch2:		%{name}-%{version}-git.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	desktop-file-utils
@@ -42,7 +41,6 @@ tabbed interface that allows you to open many diffs at once.
 %setup -q
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .scrollkeeper
-%patch2 -p1 -b .git
 
 
 %build
@@ -80,15 +78,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING
 %{_bindir}/%{name}
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*.py
-%{_datadir}/%{name}/*.pyc
-%{_datadir}/%{name}/*.pyo
-%dir %{_datadir}/%{name}/vc
-%{_datadir}/%{name}/vc/*.py
-%{_datadir}/%{name}/vc/*.pyc
-%{_datadir}/%{name}/vc/*.pyo
-%{_datadir}/%{name}/glade2/
+%{_datadir}/%{name}/
 %{_datadir}/applications/fedora-%{name}.desktop
 %{_datadir}/application-registry/%{name}*
 %{_datadir}/pixmaps/%{name}.png
@@ -97,6 +87,11 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sun Aug  3 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2-1
+- Update to 1.2.
+- Drop git patch.  fixed upstream.
+- Update scrollkeeper patch.
+
 * Tue Jun  3 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.1.5-5
 - Backport git support (#449250).
 
