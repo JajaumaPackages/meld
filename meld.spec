@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -17,7 +17,7 @@ BuildRequires:	intltool
 BuildRequires:	scrollkeeper
 BuildRequires:	perl(XML::Parser)
 
-Requires:	gnome-python2 >= 2.6.0
+Requires:	gnome-python2-gnome
 Requires:	gnome-python2-canvas
 Requires:	gnome-python2-gconf
 Requires:	gnome-python2-gtksourceview
@@ -87,6 +87,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Tue Aug 26 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2-2
+- Change require to gnome-python2-gnome. (#460010)
+
 * Sun Aug  3 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2-1
 - Update to 1.2.
 - Drop git patch.  fixed upstream.
