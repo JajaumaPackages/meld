@@ -1,13 +1,12 @@
 Name:		meld
-Version:	1.2
-Release:	2%{?dist}
+Version:	1.2.1
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meld.sourceforge.net/
 Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
-Patch0:		desktop.patch
 Patch1:		%{name}-scrollkeeper.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -21,7 +20,7 @@ Requires:	gnome-python2-gnome
 Requires:	gnome-python2-canvas
 Requires:	gnome-python2-gconf
 Requires:	gnome-python2-gtksourceview
-Requires:	pygtk2 >= 2.6.0
+Requires:	pygtk2 >= 2.8.0
 Requires:	pygtk2-libglade
 
 Requires(post):	scrollkeeper
@@ -39,7 +38,6 @@ tabbed interface that allows you to open many diffs at once.
 
 %prep
 %setup -q
-%patch0 -p1 -b .desktop
 %patch1 -p1 -b .scrollkeeper
 
 
@@ -87,6 +85,10 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sun Nov 23 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2.1-1
+- Update to 1.2.1.
+- Drop desktop file patch.  Fixed upstream.
+
 * Tue Aug 26 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2-2
 - Change require to gnome-python2-gnome. (#460010)
 
