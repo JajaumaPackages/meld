@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.2.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -85,6 +85,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Mon Dec 01 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1.2.1-2
+- Rebuild for Python 2.6
+
 * Sun Nov 23 2008 Brian Pepple <bpepple@fedoraproject.org> - 1.2.1-1
 - Update to 1.2.1.
 - Drop desktop file patch.  Fixed upstream.
