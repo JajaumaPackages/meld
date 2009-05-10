@@ -1,12 +1,12 @@
 Name:		meld
-Version:	1.2.1
-Release:	3%{?dist}
+Version:	1.3.0
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meld.sourceforge.net/
-Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.1/meld-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.3/%{name}-%{version}.tar.bz2
 Patch1:		%{name}-scrollkeeper.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -16,12 +16,9 @@ BuildRequires:	intltool
 BuildRequires:	scrollkeeper
 BuildRequires:	perl(XML::Parser)
 
-Requires:	gnome-python2-gnome
-Requires:	gnome-python2-canvas
-Requires:	gnome-python2-gconf
-Requires:	gnome-python2-gtksourceview
 Requires:	pygtk2 >= 2.8.0
 Requires:	pygtk2-libglade
+Requires:	pygobject2 >= 2.8.0
 
 Requires(post):	scrollkeeper
 Requires(postun): scrollkeeper
@@ -85,6 +82,10 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sun May 10 2009 Brian Pepple <bpepple@fedoraproject.org> - 1.3.0-1
+- Update to 1.3.0.
+- Drop gnome-python2-* requires, since they shouldn't be needed anymore.
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
