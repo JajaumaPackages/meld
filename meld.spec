@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.3.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -82,6 +82,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Sun May 10 2009 Brian Pepple <bpepple@fedoraproject.org> - 1.3.0-1
 - Update to 1.3.0.
 - Drop gnome-python2-* requires, since they shouldn't be needed anymore.
