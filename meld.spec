@@ -1,12 +1,12 @@
 Name:		meld
-Version:	1.3.0
-Release:	2%{?dist}
+Version:	1.3.1
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meld.sourceforge.net/
-Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.3/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.3/%{name}-%{version}.tar.bz2
 Patch1:		%{name}-scrollkeeper.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -19,9 +19,6 @@ BuildRequires:	perl(XML::Parser)
 Requires:	pygtk2 >= 2.8.0
 Requires:	pygtk2-libglade
 Requires:	pygobject2 >= 2.8.0
-
-Requires(post):	scrollkeeper
-Requires(postun): scrollkeeper
 
 BuildArch:	noarch
 
@@ -57,14 +54,6 @@ desktop-file-install --vendor fedora                    \
 %find_lang %{name}
 
 
-%post
-scrollkeeper-update -q -o %{_datadir}/omf/%{name} || :
-
-
-%postun
-scrollkeeper-update -q || :
-
-
 %clean
 rm -rf ${RPM_BUILD_ROOT}
 
@@ -75,13 +64,16 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/fedora-%{name}.desktop
-%{_datadir}/application-registry/%{name}*
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/gnome/help/%{name}/
 %{_datadir}/omf/%{name}/
 
 
 %changelog
+* Wed Jan  6 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.3.1-1
+- Update to 1.3.1.
+- Remove scrollkeeper scriptlets since they are no longer needed.
+
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
