@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.3.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -54,10 +54,6 @@ desktop-file-install --vendor fedora                    \
 %find_lang %{name}
 
 
-%clean
-rm -rf ${RPM_BUILD_ROOT}
-
-
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING
@@ -70,6 +66,9 @@ rm -rf ${RPM_BUILD_ROOT}
 
 
 %changelog
+* Sun Apr 25 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.3.1-2
+- Remove clean section. No longer needed.
+
 * Wed Jan  6 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.3.1-1
 - Update to 1.3.1.
 - Remove scrollkeeper scriptlets since they are no longer needed.
