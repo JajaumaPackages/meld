@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.3.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -66,6 +66,9 @@ desktop-file-install --vendor fedora                    \
 
 
 %changelog
+* Wed Aug 11 2010 David Malcolm <dmalcolm@redhat.com> - 1.3.1-3
+- recompiling .py files against Python 2.7 (rhbz#623335)
+
 * Sun Apr 25 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.3.1-2
 - Remove clean section. No longer needed.
 
