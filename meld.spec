@@ -1,6 +1,6 @@
 Name:		meld
-Version:	1.3.1
-Release:	3%{?dist}
+Version:	1.3.2
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -63,9 +63,13 @@ desktop-file-install --vendor fedora                    \
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/gnome/help/%{name}/
 %{_datadir}/omf/%{name}/
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 
 %changelog
+* Mon Sep  6 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.3.2-1
+- Update to 1.3.2.
+
 * Wed Aug 11 2010 David Malcolm <dmalcolm@redhat.com> - 1.3.1-3
 - recompiling .py files against Python 2.7 (rhbz#623335)
 
