@@ -1,12 +1,12 @@
 Name:		meld
-Version:	1.3.2
+Version:	1.4.0
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meld.sourceforge.net/
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.3/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.4/%{name}-%{version}.tar.bz2
 Patch1:		%{name}-scrollkeeper.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -67,6 +67,10 @@ desktop-file-install --vendor fedora                    \
 
 
 %changelog
+* Wed Oct 20 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.4.0-1
+- Update to 1.4.0.
+- Update source url.
+
 * Mon Sep  6 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.3.2-1
 - Update to 1.3.2.
 
