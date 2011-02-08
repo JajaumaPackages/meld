@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -67,6 +67,9 @@ desktop-file-install --vendor fedora                    \
 
 
 %changelog
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Wed Oct 20 2010 Brian Pepple <bpepple@fedoraproject.org> - 1.4.0-1
 - Update to 1.4.0.
 - Update source url.
