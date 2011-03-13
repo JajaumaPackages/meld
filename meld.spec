@@ -18,6 +18,7 @@ BuildRequires:	perl(XML::Parser)
 Requires:	pygtk2 >= 2.8.0
 Requires:	pygtk2-libglade
 Requires:	pygobject2 >= 2.8.0
+Requires:   patch
 
 BuildArch:	noarch
 
@@ -47,8 +48,8 @@ make prefix=%{_prefix} libdir=%{_datadir} \
 desktop-file-install --vendor fedora                    \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications       \
   --delete-original                                     \
-  --add-category="GTK"
-  --remove-category="Application"
+  --add-category="GTK"                                  \
+  --remove-category="Application"                       \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
@@ -69,6 +70,7 @@ desktop-file-install --vendor fedora                    \
 * Sun Mar 13 2011 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.0-2
 - New upstream release: Meld 1.5
 - remove the scrollkeeper patch
+- add requirement for patch (fixes rhbz#651815)
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
