@@ -1,13 +1,12 @@
 Name:		meld
 Version:	1.5.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meld.sourceforge.net/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.5/%{name}-%{version}.tar.bz2
-Patch1:		%{name}-scrollkeeper.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	desktop-file-utils
@@ -32,7 +31,6 @@ tabbed interface that allows you to open many diffs at once.
 
 %prep
 %setup -q
-%patch1 -p1 -b .scrollkeeper
 
 
 %build
@@ -49,6 +47,8 @@ make prefix=%{_prefix} libdir=%{_datadir} \
 desktop-file-install --vendor fedora                    \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications       \
   --delete-original                                     \
+  --add-category="GTK"
+  --remove-category="Application"
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
@@ -66,8 +66,9 @@ desktop-file-install --vendor fedora                    \
 
 
 %changelog
-* Sun Mar 13 2011 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.0-1
+* Sun Mar 13 2011 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.0-2
 - New upstream release: Meld 1.5
+- remove the scrollkeeper patch
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
