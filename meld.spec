@@ -1,12 +1,12 @@
 Name:		meld
-Version:	1.4.0
-Release:	2%{?dist}
+Version:	1.5.0
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meld.sourceforge.net/
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.4/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.5/%{name}-%{version}.tar.bz2
 Patch1:		%{name}-scrollkeeper.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -60,13 +60,15 @@ desktop-file-install --vendor fedora                    \
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/fedora-%{name}.desktop
-%{_datadir}/pixmaps/%{name}.png
 %{_datadir}/gnome/help/%{name}/
 %{_datadir}/omf/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 
 %changelog
+* Sun Mar 13 2011 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.0-1
+- New upstream release: Meld 1.5
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
