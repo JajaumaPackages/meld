@@ -71,7 +71,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING
+%doc AUTHORS COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/fedora-%{name}.desktop
@@ -81,6 +81,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* FIXME - 1.5.1-2
+- Add NEWS to %%doc
+
 * Sun Apr 03 2011 Christoph Wickert <cwickert@fedoraproject.org> - 1.5.1-1
 - Update to 1.5.1
 - Run gtk-update-icon-cache after (un)install
