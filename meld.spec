@@ -1,6 +1,6 @@
 Name:		meld
-Version:	1.5.0
-Release:	2%{?dist}
+Version:	1.5.1
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -18,7 +18,7 @@ BuildRequires:	perl(XML::Parser)
 Requires:	pygtk2 >= 2.8.0
 Requires:	pygtk2-libglade
 Requires:	pygobject2 >= 2.8.0
-Requires:   patch
+Requires:       patch
 
 BuildArch:	noarch
 
@@ -42,8 +42,7 @@ make prefix=%{_prefix} libdir=%{_datadir}
 rm -rf ${RPM_BUILD_ROOT}
 
 make prefix=%{_prefix} libdir=%{_datadir} \
-  DESTDIR=${RPM_BUILD_ROOT} install
-
+  DESTDIR=${RPM_BUILD_ROOT} install INSTALL='install -p'
 
 desktop-file-install --vendor fedora                    \
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications       \
@@ -53,6 +52,21 @@ desktop-file-install --vendor fedora                    \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
+
+
+%post
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+
+%postun
+if [ $1 -eq 0 ] ; then
+    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+
+%posttrans
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files -f %{name}.lang
@@ -67,6 +81,10 @@ desktop-file-install --vendor fedora                    \
 
 
 %changelog
+* Sun Apr 03 2011 Christoph Wickert <cwickert@fedoraproject.org> - 1.5.1-1
+- Update to 1.5.1
+- Run gtk-update-icon-cache after (un)install
+
 * Sun Mar 13 2011 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.0-2
 - New upstream release: Meld 1.5
 - remove the scrollkeeper patch
