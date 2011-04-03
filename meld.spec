@@ -86,9 +86,11 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 - Run gtk-update-icon-cache after (un)install
 
 * Sun Mar 13 2011 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.0-2
-- New upstream release: Meld 1.5
 - remove the scrollkeeper patch
 - add requirement for patch (fixes rhbz#651815)
+
+* Sun Mar 13 2011 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.0-1
+- New upstream release: Meld 1.5
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
