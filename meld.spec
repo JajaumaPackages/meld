@@ -18,7 +18,7 @@ BuildRequires:	perl(XML::Parser)
 Requires:	pygtk2 >= 2.8.0
 Requires:	pygtk2-libglade
 Requires:	pygobject2 >= 2.8.0
-Requires:       patch
+Requires:	patch
 
 BuildArch:	noarch
 
@@ -44,11 +44,11 @@ rm -rf ${RPM_BUILD_ROOT}
 make prefix=%{_prefix} libdir=%{_datadir} \
   DESTDIR=${RPM_BUILD_ROOT} install INSTALL='install -p'
 
-desktop-file-install --vendor fedora                    \
-  --dir ${RPM_BUILD_ROOT}%{_datadir}/applications       \
-  --delete-original                                     \
-  --add-category="GTK"                                  \
-  --remove-category="Application"                       \
+desktop-file-install --vendor fedora					\
+  --dir ${RPM_BUILD_ROOT}%{_datadir}/applications		\
+  --delete-original										\
+  --add-category="GTK"									\
+  --remove-category="Application"						\
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
@@ -81,7 +81,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
-* FIXME - 1.5.1-2
+* Mon Apr 04 2011 Christoph Wickert <cwickert@fedoraproject.org> - 1.5.1-2
 - Add NEWS to %%doc
 
 * Sun Apr 03 2011 Christoph Wickert <cwickert@fedoraproject.org> - 1.5.1-1
