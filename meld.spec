@@ -1,5 +1,5 @@
 Name:		meld
-Version:	1.5.3
+Version:	1.5.4
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
@@ -81,6 +81,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Apr 07 2012 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.4-1
+- New upstream release: Meld 1.5.4
+
 * Sat Jan 27 2012 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.3-1
 - New upstream release: Meld 1.5.3
 
