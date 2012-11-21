@@ -15,9 +15,9 @@ BuildRequires:	intltool
 BuildRequires:	scrollkeeper
 BuildRequires:	perl(XML::Parser)
 
-Requires:	pygtk2 >= 2.8.0
+Requires:	pygtk2
 Requires:	pygtk2-libglade
-Requires:	pygobject2 >= 2.8.0
+Requires:	pygobject2
 Requires:	patch
 
 BuildArch:	noarch
