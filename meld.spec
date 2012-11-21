@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.7.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -81,6 +81,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Nov 22 2012 Dominic Hopf <dmaphy@fedoraproject.org> - 1.7.0-2
+- Remove version from Requires (RHBZ#873198)
+
 * Wed Nov 21 2012 Dominic Hopf <dmaphy@fedoraproject.org> - 1.7.0-1
 - New upstream release: Meld 1.7.0
 
