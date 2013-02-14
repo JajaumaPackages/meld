@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.7.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -44,7 +44,7 @@ rm -rf ${RPM_BUILD_ROOT}
 make prefix=%{_prefix} libdir=%{_datadir} \
   DESTDIR=${RPM_BUILD_ROOT} install INSTALL='install -p'
 
-desktop-file-install --vendor fedora					\
+desktop-file-install									\
   --dir ${RPM_BUILD_ROOT}%{_datadir}/applications		\
   --delete-original										\
   --add-category="GTK"									\
@@ -74,13 +74,16 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %doc COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
-%{_datadir}/applications/fedora-%{name}.desktop
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/gnome/help/%{name}/
 %{_datadir}/omf/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 
 %changelog
+* Thu Feb 14 2013 Toshio Kuratomi <toshio@fedoraproject.org> - 1.7.0-4
+- remove the --vendor switch to desktop-file-install
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
