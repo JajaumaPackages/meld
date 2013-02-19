@@ -5,7 +5,7 @@ Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
-URL:		http://meld.sourceforge.net/
+URL:		http://meldmerge.org/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.7/%{name}-%{version}.tar.xz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -16,18 +16,23 @@ BuildRequires:	scrollkeeper
 BuildRequires:	perl(XML::Parser)
 
 Requires:	pygtk2
-Requires:	pygtk2-libglade
+Requires:	pygtksourceview
 Requires:	pygobject2
+Requires:	dbus-python
+Requires:	dbus-x11
 Requires:	patch
 
 BuildArch:	noarch
 
 %description
-Meld is a GNOME 2 visual diff and merge tool. It integrates especially well
-with CVS. The diff viewer lets you edit files in place (diffs update
-dynamically), and a middle column shows detailed changes and allows merges. The
-margins show location of changes for easy navigation, and it also features a
-tabbed interface that allows you to open many diffs at once.
+Meld is a visual diff and merge tool targeted at developers. It helps you
+compare files, directories, and version controlled projects. It provides two-
+and three-way comparison of both files and directories, and the tabbed interface
+allows you to open many diffs at once.
+Meld has has support for many popular version control systems including Git,
+Mercurial, Bazaar, SVN and CVS. The diff viewer lets you edit files in place
+(diffs update dynamically), and a middle column shows detailed changes and
+allows merges. The margins show location of changes for easy navigation.
 
 
 %prep
@@ -84,6 +89,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Feb 18 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1.7.0-6
+- Require dbus-python and dbus-x11 (#912580)
+- Require pygtksourceview (#888717)
+- No longer require pygtk-libglade (#887527)
+- Update description and fix URL (#887527)
+
 * Thu Feb 14 2013 Toshio Kuratomi <toshio@fedoraproject.org> - 1.7.0-5
 - Conditionalize the --vendor removal so the spec can be used on other releases
 
