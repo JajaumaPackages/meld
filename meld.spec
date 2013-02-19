@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.7.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -49,14 +49,14 @@ rm -rf ${RPM_BUILD_ROOT}
 make prefix=%{_prefix} libdir=%{_datadir} \
   DESTDIR=${RPM_BUILD_ROOT} install INSTALL='install -p'
 
-desktop-file-install									\
+desktop-file-install \
 %if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 6)
   --vendor fedora \
 %endif
-  --dir ${RPM_BUILD_ROOT}%{_datadir}/applications		\
-  --delete-original										\
-  --add-category="GTK"									\
-  --remove-category="Application"						\
+  --dir ${RPM_BUILD_ROOT}%{_datadir}/applications \
+  --delete-original \
+  --add-category="GTK" \
+  --remove-category="Application" \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop \
 
 %find_lang %{name}
