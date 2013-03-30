@@ -63,7 +63,7 @@ desktop-file-install \
   --remove-category="Application" \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop \
 
-%find_lang %{name}
+%find_lang %{name} --with-gnome
 
 
 %post
@@ -96,8 +96,6 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 %{_datadir}/%{name}/
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/applications/*%{name}.desktop
-%{_datadir}/gnome/help/%{name}/
-%{_datadir}/omf/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_datadir}/icons/HighContrast/*/apps/%{name}.*
 
@@ -105,6 +103,7 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 %changelog
 * Sat Mar 30 2013 Kalev Lember <kalevlember@gmail.com> - 1.7.1-3
 - More rpm scriptlet fixes
+- Use find_lang --with-gnome for the help documentation
 
 * Sat Mar 30 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1.7.1-2
 - Fix mime installation
