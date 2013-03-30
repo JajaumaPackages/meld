@@ -1,6 +1,6 @@
 Name:		meld
-Version:	1.7.0
-Release:	6%{?dist}
+Version:	1.7.1
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -89,6 +89,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Mar 30 2013 Dominic Hopf <dmaphy@fedoraproject.org> - 1.7.1-1
+- New upstream release: Meld 1.7.1
+
 * Tue Feb 18 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1.7.0-6
 - Require dbus-python and dbus-x11 (#912580)
 - Require pygtksourceview (#888717)
