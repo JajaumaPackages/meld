@@ -82,10 +82,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %doc COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
+%{_datadir}/mime/
 %{_datadir}/applications/*%{name}.desktop
+%{_datadir}/applications/mimeinfo.cache
 %{_datadir}/gnome/help/%{name}/
 %{_datadir}/omf/%{name}/
-%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/icons/*/*/apps/%{name}.*
 
 
 %changelog
