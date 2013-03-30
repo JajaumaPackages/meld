@@ -1,0 +1,62 @@
+From 55439d86bcb961e47a07cad483daabeb2620d4bb Mon Sep 17 00:00:00 2001
+From: Kalev Lember <kalevlember@gmail.com>
+Date: Sat, 30 Mar 2013 12:46:31 +0100
+Subject: [PATCH] build: Only update the MIME cache when DESTDIR isn't set
+
+This adds a check to run update-mime-database / update-desktop-database
+only when DESTDIR isn't set.
+
+We don't want to include the generated cache files in downstream
+packages. These should be regenerated on the user's machine, not on the
+build host.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=696903
+---
+ Makefile | 27 +++++++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index dca92b3..b1e9cf9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -92,8 +92,8 @@ install: $(addsuffix .install,$(SPECIALS)) meld.desktop
+ 		$(DESTDIR)$(sharedir)/icons/HighContrast/scalable/apps/meld.svg
+ 	$(MAKE) -C po install
+ 	$(MAKE) -C help install
+-	update-mime-database $(DESTDIR)$(sharedir)/mime
+-	update-desktop-database $(DESTDIR)$(sharedir)/applications
++	$(update_mime_database)
++	$(update_desktop_database)
+ 
+ meld.desktop: data/meld.desktop.in
+ 	intltool-merge -d po data/meld.desktop.in data/meld.desktop
+@@ -122,6 +122,25 @@ uninstall:
+ 		$(sharedir)/pixmaps/meld.png
+ 	$(MAKE) -C po uninstall
+ 	$(MAKE) -C help uninstall
+-	update-mime-database $(DESTDIR)$(sharedir)/mime
+-	update-desktop-database $(DESTDIR)$(sharedir)/applications
++	$(update_mime_database)
++	$(update_desktop_database)
+ 
++update_mime_database_cmd = update-mime-database $(sharedir)/mime
++update_mime_database = \
++	@-if test -z "$(DESTDIR)"; then \
++		echo "Updating MIME database."; \
++		$(update_mime_database_cmd); \
++	else \
++		echo "*** MIME database not updated.  After (un)install, run this:"; \
++		echo "***   $(update_mime_database_cmd)"; \
++	fi
++
++update_desktop_database_cmd = update-desktop-database $(sharedir)/applications
++update_desktop_database = \
++	@-if test -z "$(DESTDIR)"; then \
++		echo "Updating desktop database."; \
++		$(update_desktop_database_cmd); \
++	else \
++		echo "*** Desktop database not updated.  After (un)install, run this:"; \
++		echo "***   $(update_desktop_database_cmd)"; \
++	fi
+-- 
+1.8.2
