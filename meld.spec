@@ -1,12 +1,15 @@
 Name:		meld
 Version:	1.7.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meldmerge.org/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.7/%{name}-%{version}.tar.xz
+# Don't run update-desktop-database and update-mime-database
+# Upstream bug: https://bugzilla.gnome.org/show_bug.cgi?id=696903
+Patch0:		meld-1.7.1-Only-update-the-MIME-cache-when-DESTDIR-isnt.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	desktop-file-utils
@@ -37,10 +40,11 @@ allows merges. The margins show location of changes for easy navigation.
 
 %prep
 %setup -q
+%patch0 -p1
 
 
 %build
-make prefix=%{_prefix} libdir=%{_datadir}
+make prefix=%{_prefix} libdir=%{_datadir} sharedir=%{_datadir}
 
 
 %install
@@ -64,17 +68,21 @@ desktop-file-install \
 
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %postun
 if [ $1 -eq 0 ] ; then
     touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+    gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 fi
+update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %posttrans
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 
 
 %files -f %{name}.lang
@@ -84,17 +92,20 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/%{name}/
 %{_datadir}/mime/
 %{_datadir}/applications/*%{name}.desktop
-%{_datadir}/applications/mimeinfo.cache
 %{_datadir}/gnome/help/%{name}/
 %{_datadir}/omf/%{name}/
 %{_datadir}/icons/*/*/apps/%{name}.*
 
 
 %changelog
+* Sat Mar 30 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1.7.1-2
+- Fix mime installation
+- Fix some changelog entries
+
 * Sat Mar 30 2013 Dominic Hopf <dmaphy@fedoraproject.org> - 1.7.1-1
 - New upstream release: Meld 1.7.1
 
-* Tue Feb 18 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1.7.0-6
+* Tue Feb 19 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1.7.0-6
 - Require dbus-python and dbus-x11 (#912580)
 - Require pygtksourceview (#888717)
 - No longer require pygtk-libglade (#887527)
@@ -124,7 +135,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 * Sat Apr 07 2012 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.4-1
 - New upstream release: Meld 1.5.4
 
-* Sat Jan 27 2012 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.3-1
+* Sat Feb 04 2012 Dominic Hopf <dmaphy@fedoraproject.org> - 1.5.3-1
 - New upstream release: Meld 1.5.3
 
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5.2-2
