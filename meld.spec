@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.7.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -68,15 +68,19 @@ desktop-file-install \
 
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+touch --no-create %{_datadir}/icons/HighContrast &>/dev/null || :
+update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %postun
 if [ $1 -eq 0 ] ; then
     touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    touch --no-create %{_datadir}/icons/HighContrast &>/dev/null
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
     gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 fi
+update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
@@ -90,14 +94,18 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 %doc COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
-%{_datadir}/mime/
+%{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/gnome/help/%{name}/
 %{_datadir}/omf/%{name}/
-%{_datadir}/icons/*/*/apps/%{name}.*
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/icons/HighContrast/*/apps/%{name}.*
 
 
 %changelog
+* Sat Mar 30 2013 Kalev Lember <kalevlember@gmail.com> - 1.7.1-3
+- More rpm scriptlet fixes
+
 * Sat Mar 30 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1.7.1-2
 - Fix mime installation
 - Fix some changelog entries
