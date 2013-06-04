@@ -1,6 +1,6 @@
 Name:		meld
-Version:	1.7.1
-Release:	3%{?dist}
+Version:	1.7.3
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -9,7 +9,6 @@ URL:		http://meldmerge.org/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.7/%{name}-%{version}.tar.xz
 # Don't run update-desktop-database and update-mime-database
 # Upstream bug: https://bugzilla.gnome.org/show_bug.cgi?id=696903
-Patch0:		meld-1.7.1-Only-update-the-MIME-cache-when-DESTDIR-isnt.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	desktop-file-utils
@@ -40,7 +39,6 @@ allows merges. The margins show location of changes for easy navigation.
 
 %prep
 %setup -q
-%patch0 -p1
 
 
 %build
@@ -101,6 +99,9 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 
 
 %changelog
+* Tue Jun 04 2013 Dominic Hopf <dmaphy@fedoraproject.org> - 1.7.3-1
+- New upstream release: Meld 1.7.3
+
 * Sat Mar 30 2013 Kalev Lember <kalevlember@gmail.com> - 1.7.1-3
 - More rpm scriptlet fixes
 - Use find_lang --with-gnome for the help documentation
