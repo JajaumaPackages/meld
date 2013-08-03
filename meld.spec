@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.7.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -99,6 +99,9 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Tue Jun 04 2013 Dominic Hopf <dmaphy@fedoraproject.org> - 1.7.3-1
 - New upstream release: Meld 1.7.3
 
