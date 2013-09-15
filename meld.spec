@@ -1,12 +1,12 @@
 Name:		meld
-Version:	1.7.5
+Version:	1.8.0
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meldmerge.org/
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.7/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/1.8/%{name}-%{version}.tar.xz
 # Don't run update-desktop-database and update-mime-database
 # Upstream bug: https://bugzilla.gnome.org/show_bug.cgi?id=696903
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -99,6 +99,9 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 
 
 %changelog
+* Sun Sep 15 2013 Dominic Hopf <dmaphy@fedoraproject.org> - 1.8.0-1
+- New upstream release: Meld 1.8.0
+
 * Sun Sep 01 2013 Dominic Hopf <dmaphy@fedoraproject.org> - 1.7.5-1
 - New upstream release: Meld 1.7.5
 
