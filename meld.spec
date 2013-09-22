@@ -1,5 +1,5 @@
 Name:		meld
-Version:	1.8.0
+Version:	1.8.1
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
@@ -94,11 +94,15 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 %{_datadir}/%{name}/
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/applications/*%{name}.desktop
+%{_datadir}/appdata/*%{name}.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_datadir}/icons/HighContrast/*/apps/%{name}.*
 
 
 %changelog
+* Sun Sep 22 2013 Dominic Hopf <dmaphy@fedoraproject.org> - 1.8.1-1
+- New upstream release: Meld 1.8.1
+
 * Sun Sep 15 2013 Dominic Hopf <dmaphy@fedoraproject.org> - 1.8.0-1
 - New upstream release: Meld 1.8.0
 
