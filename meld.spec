@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.8.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -25,6 +25,9 @@ Requires:	dbus-x11
 Requires:	patch
 
 BuildArch:	noarch
+
+Provides:	mergetool
+
 
 %description
 Meld is a visual diff and merge tool targeted at developers. It helps you
@@ -100,6 +103,9 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 
 
 %changelog
+* Thu Jan 02 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 1.8.3-2
+- add virtual Provides for mergetool (RHBZ#990449)
+
 * Wed Jan 01 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 1.8.3-1
 - New upstream release: Meld 1.8.3
 
