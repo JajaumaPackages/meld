@@ -1,6 +1,6 @@
 Name:		meld
 Version:	1.8.3
-Release:	1%{?dist}
+Release:	1%{?dist}.1
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -18,7 +18,9 @@ BuildRequires:	scrollkeeper
 BuildRequires:	perl(XML::Parser)
 
 Requires:	pygtk2
+%if 0%{?fedora}
 Requires:	pygtksourceview
+%endif
 Requires:	pygobject2
 Requires:	dbus-python
 Requires:	dbus-x11
@@ -100,6 +102,9 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 
 
 %changelog
+* Tue Feb 11 2014 Lubomir Rintel <lkundrak@v3.sk> - 1.8.3-1.1
+- No pygtksourceview in el7
+
 * Wed Jan 01 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 1.8.3-1
 - New upstream release: Meld 1.8.3
 
