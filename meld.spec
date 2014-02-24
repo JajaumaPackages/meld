@@ -7,19 +7,17 @@ Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meldmerge.org/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.11/%{name}-%{version}.tar.xz
-# Don't run update-desktop-database and update-mime-database
-# Upstream bug: https://bugzilla.gnome.org/show_bug.cgi?id=696903
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
-BuildRequires:	scrollkeeper
+BuildRequires:	itstool
+BuildRequires:	python2-devel
 BuildRequires:	perl(XML::Parser)
 
-Requires:	pygtk2
-Requires:	pygtksourceview
-Requires:	pygobject2
+Requires:	glib2 >= 2.34.0
+Requires:	gtk3 >= 3.6.0
+Requires:	gtksourceview3 >= 3.6.0
 Requires:	dbus-python
 Requires:	dbus-x11
 Requires:	patch
@@ -45,14 +43,10 @@ allows merges. The margins show location of changes for easy navigation.
 
 
 %build
-make prefix=%{_prefix} libdir=%{_datadir} sharedir=%{_datadir}
-
+CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 
 %install
-rm -rf ${RPM_BUILD_ROOT}
-
-make prefix=%{_prefix} libdir=%{_datadir} \
-  DESTDIR=${RPM_BUILD_ROOT} install INSTALL='install -p'
+%{__python} setup.py install --root $RPM_BUILD_ROOT
 
 desktop-file-install \
 %if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 6)
@@ -80,6 +74,7 @@ if [ $1 -eq 0 ] ; then
     touch --no-create %{_datadir}/icons/HighContrast &>/dev/null
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
     gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
+    glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 fi
 update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
@@ -88,6 +83,7 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %posttrans
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
+glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %files -f %{name}.lang
@@ -98,8 +94,13 @@ gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/appdata/*%{name}.appdata.xml
-%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/icons/hicolor/*/*/*.*
 %{_datadir}/icons/HighContrast/*/apps/%{name}.*
+%{python2_sitelib}/*
+%doc %{_datadir}/doc/meld-3.11.0/COPYING
+%doc %{_datadir}/doc/meld-3.11.0/NEWS
+%{_datadir}/glib-2.0/schemas/org.gnome.meld.gschema.xml
+%{_mandir}/man1/meld.1.gz
 
 
 %changelog
