@@ -8,6 +8,9 @@ License:	GPLv2+
 URL:		http://meldmerge.org/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.11/%{name}-%{version}.tar.xz
 
+Patch0:		0001-meldapp-Add-helper-to-get-the-current-MeldWindow-and.patch
+Patch1:         0002-Terminate-with-proper-exit-status-upon-error.patch
+
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
@@ -104,6 +107,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Mon May 19 2014 Lubomir Rintel <lkundrak@v3.sk> - 3.11.0-1.1
+- Fix up error handling
+
 * Mon Feb 24 2014 Richard Hughes <rhughes@redhat.com> - 3.11.0-1
 - Update to 3.11.0
 
