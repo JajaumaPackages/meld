@@ -1,6 +1,6 @@
 Name:		meld
 Version:	3.11.0
-Release:	1%{?dist}
+Release:	1%{?dist}.1
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
