@@ -1,6 +1,6 @@
 Name:		meld
 Version:	3.11.0
-Release:	1%{?dist}.1
+Release:	1%{?dist}.2
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -43,6 +43,8 @@ allows merges. The margins show location of changes for easy navigation.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 
 %build
@@ -107,6 +109,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Mon May 19 2014 Lubomir Rintel <lkundrak@v3.sk> - 3.11.0-1.2
+- Actually apply the patches...
+
 * Mon May 19 2014 Lubomir Rintel <lkundrak@v3.sk> - 3.11.0-1.1
 - Fix up error handling
 
