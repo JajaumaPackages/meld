@@ -1,6 +1,6 @@
 Name:		meld
-Version:	3.11.0
-Release:	2%{?dist}
+Version:	3.11.1
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -104,6 +104,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sun Jun 08 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.1-1
+- Update to 3.11.1
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
