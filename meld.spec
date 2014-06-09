@@ -46,7 +46,7 @@ allows merges. The margins show location of changes for easy navigation.
 CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 
 %install
-%{__python} setup.py install --root $RPM_BUILD_ROOT
+%{__python} setup.py --no-update-icon-cache --no-compile-schemas install --root $RPM_BUILD_ROOT
 
 desktop-file-install \
 %if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 6)
@@ -62,27 +62,26 @@ desktop-file-install \
 
 
 %post
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-touch --no-create %{_datadir}/icons/HighContrast &>/dev/null || :
+#touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+#touch --no-create %{_datadir}/icons/HighContrast &>/dev/null || :
 update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %postun
 if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    touch --no-create %{_datadir}/icons/HighContrast &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-    gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
+#    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+#    touch --no-create %{_datadir}/icons/HighContrast &>/dev/null
+#    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+#    gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
     glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 fi
 update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
 
-
 %posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
+#gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+#gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
@@ -97,8 +96,8 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_datadir}/icons/hicolor/*/*/*.*
 %{_datadir}/icons/HighContrast/*/apps/%{name}.*
 %{python2_sitelib}/*
-%doc %{_datadir}/doc/meld-3.11.0/COPYING
-%doc %{_datadir}/doc/meld-3.11.0/NEWS
+%doc %{_datadir}/doc/%{name}-%{version}/COPYING
+%doc %{_datadir}/doc/%{name}-%{version}/NEWS
 %{_datadir}/glib-2.0/schemas/org.gnome.meld.gschema.xml
 %{_mandir}/man1/meld.1.gz
 
