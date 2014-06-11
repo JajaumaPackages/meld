@@ -1,6 +1,6 @@
 Name:		meld
 Version:	3.11.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -17,6 +17,10 @@ BuildRequires:	perl(XML::Parser)
 
 Requires:	glib2 >= 2.34.0
 Requires:	gtk3 >= 3.6.0
+
+# gtk2 is needed since it provides gtk-update-icon-cache
+Requires:	gtk2
+
 Requires:	gtksourceview3 >= 3.6.0
 Requires:	dbus-python
 Requires:	dbus-x11
@@ -62,26 +66,26 @@ desktop-file-install \
 
 
 %post
-#touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-#touch --no-create %{_datadir}/icons/HighContrast &>/dev/null || :
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+touch --no-create %{_datadir}/icons/HighContrast &>/dev/null || :
 update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %postun
 if [ $1 -eq 0 ] ; then
-#    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-#    touch --no-create %{_datadir}/icons/HighContrast &>/dev/null
-#    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-#    gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
+    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    touch --no-create %{_datadir}/icons/HighContrast &>/dev/null
+    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+    gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
     glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 fi
 update-desktop-database &> /dev/null || :
 update-mime-database %{_datadir}/mime &> /dev/null || :
 
 %posttrans
-#gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-#gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
@@ -103,6 +107,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Wed Jun 11 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.1-2
+- Require gtk2 for gtk-update-icon-cache
+
 * Sun Jun 08 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.1-1
 - Update to 3.11.1
 
