@@ -1,6 +1,6 @@
 Name:		meld
-Version:	3.11.0
-Release:	1%{?dist}.2
+Version:	3.11.2
+Release:	1%{?dist}.1
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -9,7 +9,7 @@ URL:		http://meldmerge.org/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.11/%{name}-%{version}.tar.xz
 
 Patch0:		0001-meldapp-Add-helper-to-get-the-current-MeldWindow-and.patch
-Patch1:         0002-Terminate-with-proper-exit-status-upon-error.patch
+Patch1:		0002-Terminate-with-proper-exit-status-upon-error.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -109,6 +109,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sat Jul 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.2-1.1
+- Update to 3.11.2
+
 * Mon May 19 2014 Lubomir Rintel <lkundrak@v3.sk> - 3.11.0-1.2
 - Actually apply the patches...
 
