@@ -1,6 +1,6 @@
 Name:		meld
 Version:	3.11.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -17,9 +17,6 @@ BuildRequires:	perl(XML::Parser)
 
 Requires:	glib2 >= 2.34.0
 Requires:	gtk3 >= 3.6.0
-
-# gtk2 is needed since it provides gtk-update-icon-cache
-Requires:	gtk2
 
 Requires:	gtksourceview3 >= 3.6.0
 Requires:	dbus-python
@@ -68,9 +65,8 @@ desktop-file-install \
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 touch --no-create %{_datadir}/icons/HighContrast &>/dev/null || :
+touch --no-create %{_datadir}/mime/packages &>/dev/null || :
 update-desktop-database &> /dev/null || :
-update-mime-database %{_datadir}/mime &> /dev/null || :
-
 
 %postun
 if [ $1 -eq 0 ] ; then
@@ -79,14 +75,15 @@ if [ $1 -eq 0 ] ; then
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
     gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
     glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
+    update-mime-database %{_datadir}/mime &> /dev/null || :
 fi
 update-desktop-database &> /dev/null || :
-update-mime-database %{_datadir}/mime &> /dev/null || :
 
 %posttrans
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
+update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %files -f %{name}.lang
@@ -107,6 +104,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Mon Sep 08 2014 Rex Dieter <rdieter@fedoraproject.org> - 3.11.2-2
+- update mime scriptlet
+- drop added dep for icon scriptlets, see https://fedoraproject.org/wiki/Packaging:ScriptletSnippets?rd=Packaging/ScriptletSnippets#Icon_Cache
+
 * Sat Jul 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.2-1 
 - Update to 3.11.2
 
