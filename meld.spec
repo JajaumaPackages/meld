@@ -1,6 +1,6 @@
 Name:		meld
-Version:	3.11.2
-Release:	2%{?dist}
+Version:	3.11.3
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -104,6 +104,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Sep 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.3-1 
+- Update to 3.11.3
+
 * Mon Sep 08 2014 Rex Dieter <rdieter@fedoraproject.org> - 3.11.2-2
 - update mime scriptlet
 - drop added dep for icon scriptlets, see https://fedoraproject.org/wiki/Packaging:ScriptletSnippets?rd=Packaging/ScriptletSnippets#Icon_Cache
