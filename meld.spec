@@ -1,5 +1,5 @@
 Name:		meld
-Version:	3.11.3
+Version:	3.11.4
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
@@ -104,6 +104,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Sep 19 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.4-1 
+- Update to 3.11.4
+
 * Fri Sep 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.3-1 
 - Update to 3.11.3
 
