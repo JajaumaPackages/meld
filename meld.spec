@@ -1,12 +1,12 @@
 Name:		meld
-Version:	3.11.4
+Version:	3.12.0
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meldmerge.org/
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.11/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.12/%{name}-%{version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -104,6 +104,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sat Oct 04 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.0-1
+- Update to 3.12.0
+
 * Fri Sep 19 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.4-1 
 - Update to 3.11.4
 
