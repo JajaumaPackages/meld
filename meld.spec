@@ -1,5 +1,5 @@
 Name:		meld
-Version:	3.12.0
+Version:	3.12.1
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
@@ -7,6 +7,9 @@ Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meldmerge.org/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.12/%{name}-%{version}.tar.xz
+
+Patch0:		meld-3.12-svn-fix.patch
+Patch1:		meld-3.12-gtksrcview-fix.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -41,7 +44,8 @@ allows merges. The margins show location of changes for easy navigation.
 
 %prep
 %setup -q
-
+%patch0 -p1 -b .meld-3.12-svn-fix
+%patch1 -p1 -b .meld-3.12-gtksrcview-fix
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
@@ -104,6 +108,11 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Wed Nov 06 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.1-1
+- Update to 3.12.1
+- Fix SVN breaking on non-root directories.
+- Fix GtkSource view parameters not being honored.
+
 * Sat Oct 04 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.0-1
 - Update to 3.12.0
 
