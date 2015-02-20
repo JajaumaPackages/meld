@@ -1,15 +1,12 @@
 Name:		meld
-Version:	3.11.2
-Release:	1%{?dist}.1
+Version:	3.13.0
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meldmerge.org/
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.11/%{name}-%{version}.tar.xz
-
-Patch0:		0001-meldapp-Add-helper-to-get-the-current-MeldWindow-and.patch
-Patch1:		0002-Terminate-with-proper-exit-status-upon-error.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.13/%{name}-%{version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -20,10 +17,13 @@ BuildRequires:	perl(XML::Parser)
 
 Requires:	glib2 >= 2.34.0
 Requires:	gtk3 >= 3.6.0
+
 Requires:	gtksourceview3 >= 3.6.0
 Requires:	dbus-python
 Requires:	dbus-x11
 Requires:	patch
+Requires:	pycairo
+Requires:	gsettings-desktop-schemas
 
 BuildArch:	noarch
 
@@ -43,15 +43,12 @@ allows merges. The margins show location of changes for easy navigation.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 
 %install
-%{__python} setup.py install --root $RPM_BUILD_ROOT
+%{__python} setup.py --no-update-icon-cache --no-compile-schemas install --root $RPM_BUILD_ROOT
 
 desktop-file-install \
 %if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 6)
@@ -69,9 +66,8 @@ desktop-file-install \
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 touch --no-create %{_datadir}/icons/HighContrast &>/dev/null || :
+touch --no-create %{_datadir}/mime/packages &>/dev/null || :
 update-desktop-database &> /dev/null || :
-update-mime-database %{_datadir}/mime &> /dev/null || :
-
 
 %postun
 if [ $1 -eq 0 ] ; then
@@ -80,15 +76,15 @@ if [ $1 -eq 0 ] ; then
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
     gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
     glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
+    update-mime-database %{_datadir}/mime &> /dev/null || :
 fi
 update-desktop-database &> /dev/null || :
-update-mime-database %{_datadir}/mime &> /dev/null || :
-
 
 %posttrans
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 gtk-update-icon-cache %{_datadir}/icons/HighContrast &>/dev/null || :
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
+update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %files -f %{name}.lang
@@ -102,21 +98,51 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_datadir}/icons/hicolor/*/*/*.*
 %{_datadir}/icons/HighContrast/*/apps/%{name}.*
 %{python2_sitelib}/*
-%doc %{_datadir}/doc/meld-3.11.0/COPYING
-%doc %{_datadir}/doc/meld-3.11.0/NEWS
+%doc %{_datadir}/doc/%{name}-%{version}/COPYING
+%doc %{_datadir}/doc/%{name}-%{version}/NEWS
 %{_datadir}/glib-2.0/schemas/org.gnome.meld.gschema.xml
 %{_mandir}/man1/meld.1.gz
 
 
 %changelog
-* Sat Jul 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.2-1.1
+* Fri Feb 20 2015 Lubomir Rintel <lkundrak@v3.sk> - 3.13.0-2
+- Add missing dependencies (Pavel Alexeev, #1192623)
+
+* Wed Jan 07 2015 Richard Hughes <rhughes@redhat.com> - 3.13.0-1
+- Update to 3.13.0
+
+* Thu Dec 18 2014 Richard Hughes <rhughes@redhat.com> - 3.12.2-1
+- Update to 3.12.2
+
+* Wed Nov 06 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.1-1
+- Update to 3.12.1
+- Fix SVN breaking on non-root directories.
+- Fix GtkSource view parameters not being honored.
+
+* Sat Oct 04 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.0-1
+- Update to 3.12.0
+
+* Fri Sep 19 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.4-1 
+- Update to 3.11.4
+
+* Fri Sep 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.3-1 
+- Update to 3.11.3
+
+* Mon Sep 08 2014 Rex Dieter <rdieter@fedoraproject.org> - 3.11.2-2
+- update mime scriptlet
+- drop added dep for icon scriptlets, see https://fedoraproject.org/wiki/Packaging:ScriptletSnippets?rd=Packaging/ScriptletSnippets#Icon_Cache
+
+* Sat Jul 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.2-1 
 - Update to 3.11.2
 
-* Mon May 19 2014 Lubomir Rintel <lkundrak@v3.sk> - 3.11.0-1.2
-- Actually apply the patches...
+* Wed Jun 11 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.1-2
+- Require gtk2 for gtk-update-icon-cache
 
-* Mon May 19 2014 Lubomir Rintel <lkundrak@v3.sk> - 3.11.0-1.1
-- Fix up error handling
+* Sun Jun 08 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.1-1
+- Update to 3.11.1
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
 * Mon Feb 24 2014 Richard Hughes <rhughes@redhat.com> - 3.11.0-1
 - Update to 3.11.0
