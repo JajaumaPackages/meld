@@ -1,6 +1,6 @@
 Name:		meld
 Version:	3.13.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -22,6 +22,8 @@ Requires:	gtksourceview3 >= 3.6.0
 Requires:	dbus-python
 Requires:	dbus-x11
 Requires:	patch
+Requires:	pycairo
+Requires:	gsettings-desktop-schemas
 
 BuildArch:	noarch
 
@@ -103,6 +105,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Feb 20 2015 Lubomir Rintel <lkundrak@v3.sk> - 3.13.0-2
+- Add missing dependencies (Pavel Alexeev, #1192623)
+
 * Wed Jan 07 2015 Richard Hughes <rhughes@redhat.com> - 3.13.0-1
 - Update to 3.13.0
 
