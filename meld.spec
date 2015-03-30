@@ -1,6 +1,6 @@
 Name:		meld
 Version:	3.13.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -14,6 +14,7 @@ BuildRequires:	intltool
 BuildRequires:	itstool
 BuildRequires:	python2-devel
 BuildRequires:	perl(XML::Parser)
+BuildRequires:  libappstream-glib
 
 Requires:	glib2 >= 2.34.0
 Requires:	gtk3 >= 3.6.0
@@ -60,6 +61,16 @@ desktop-file-install \
   --remove-category="Application" \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop \
 
+# Update the screenshot shown in the software center
+#
+# NOTE: It would be *awesome* if this file was pushed upstream.
+#
+# See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
+#
+appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/meld.appdata.xml \
+  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/a.png \
+  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/b.png 
+
 %find_lang %{name} --with-gnome
 
 
@@ -105,6 +116,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Mar 30 2015 Richard Hughes <rhughes@redhat.com> - 3.13.0-3
+- Use better AppData screenshots
+
 * Fri Feb 20 2015 Lubomir Rintel <lkundrak@v3.sk> - 3.13.0-2
 - Add missing dependencies (Pavel Alexeev, #1192623)
 
