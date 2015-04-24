@@ -1,6 +1,6 @@
 Name:		meld
-Version:	3.13.0
-Release:	3%{?dist}
+Version:	3.13.1
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -14,7 +14,7 @@ BuildRequires:	intltool
 BuildRequires:	itstool
 BuildRequires:	python2-devel
 BuildRequires:	perl(XML::Parser)
-BuildRequires:  libappstream-glib
+BuildRequires:	libappstream-glib
 
 Requires:	glib2 >= 2.34.0
 Requires:	gtk3 >= 3.6.0
@@ -116,6 +116,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Apr 24 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.13.1-1
+- Update to 3.13.1 (RHBZ#1214727)
+
 * Mon Mar 30 2015 Richard Hughes <rhughes@redhat.com> - 3.13.0-3
 - Use better AppData screenshots
 
@@ -128,7 +131,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 * Thu Dec 18 2014 Richard Hughes <rhughes@redhat.com> - 3.12.2-1
 - Update to 3.12.2
 
-* Wed Nov 06 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.1-1
+* Thu Nov 06 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.1-1
 - Update to 3.12.1
 - Fix SVN breaking on non-root directories.
 - Fix GtkSource view parameters not being honored.
