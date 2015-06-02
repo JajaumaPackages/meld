@@ -1,6 +1,6 @@
 Name:		meld
-Version:	3.13.0
-Release:	2%{?dist}
+Version:	3.13.1
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -24,6 +24,7 @@ Requires:	dbus-x11
 Requires:	patch
 Requires:	pycairo
 Requires:	gsettings-desktop-schemas
+Requires:	pygobject3
 
 BuildArch:	noarch
 
@@ -105,6 +106,10 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Tue Jun 02 2015 Dominic Hopf <dmaphy@fedoraproject.org> - 3.13.1-1
+- Update to 3.13.1
+- Require pygobject3 (thanks thm for reporting)
+
 * Fri Feb 20 2015 Lubomir Rintel <lkundrak@v3.sk> - 3.13.0-2
 - Add missing dependencies (Pavel Alexeev, #1192623)
 
@@ -114,7 +119,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 * Thu Dec 18 2014 Richard Hughes <rhughes@redhat.com> - 3.12.2-1
 - Update to 3.12.2
 
-* Wed Nov 06 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.1-1
+* Thu Nov 06 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.1-1
 - Update to 3.12.1
 - Fix SVN breaking on non-root directories.
 - Fix GtkSource view parameters not being honored.
