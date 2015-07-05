@@ -1,5 +1,5 @@
 Name:		meld
-Version:	3.13.1
+Version:	3.13.2
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
@@ -106,6 +106,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sun Jul 05 2015 Dominic Hopf <dmaphy@fedoraproject.org> - 3.13.2-1
+- Update to 3.13.2
+
 * Tue Jun 02 2015 Dominic Hopf <dmaphy@fedoraproject.org> - 3.13.1-1
 - Update to 3.13.1
 - Require pygobject3 (thanks thm for reporting)
