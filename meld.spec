@@ -1,5 +1,5 @@
 Name:		meld
-Version:	3.15.0
+Version:	3.15.1
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
@@ -24,7 +24,7 @@ Requires:	dbus-python
 Requires:	dbus-x11
 Requires:	patch
 Requires:	pycairo
-Requires:   python-gobject
+Requires: python-gobject
 Requires:	gsettings-desktop-schemas
 
 BuildArch:	noarch
@@ -117,10 +117,13 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
-* Mon Oct 05 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.15.0-1 
+* Fri Dec 18 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.15.1-1
+- Update to 3.15.1 (RHBZ#1291664)
+
+* Mon Oct 05 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.15.0-1
 - Update to 3.15.0 (RHBZ#1268659)
 
-* Sun Sep 28 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.14.0-2 
+* Mon Sep 28 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.14.0-2
 - add dependency to python-gobject (RHBZ#1266389)
 
 * Mon Jul 27 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.14.0-1
