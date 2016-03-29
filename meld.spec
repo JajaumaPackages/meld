@@ -117,7 +117,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
-* Tue MAr 29 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.15.2-1
+* Tue Mar 29 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.15.2-1
 - Update to 3.15.2 (RHBZ#1321567)
 
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 3.15.1-2
