@@ -1,12 +1,12 @@
 Name:		meld
-Version:	3.15.2
+Version:	3.16.0
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meldmerge.org/
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.15/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.16/%{name}-%{version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -24,7 +24,7 @@ Requires:	dbus-python
 Requires:	dbus-x11
 Requires:	patch
 Requires:	pycairo
-Requires: python-gobject
+Requires:	python-gobject
 Requires:	gsettings-desktop-schemas
 
 BuildArch:	noarch
@@ -117,6 +117,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sun May 01 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.0-1
+- Update to 3.16.0 (RHBZ#1321567)
+
 * Tue Mar 29 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.15.2-1
 - Update to 3.15.2 (RHBZ#1321567)
 
