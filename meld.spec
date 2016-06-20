@@ -1,5 +1,5 @@
 Name:		meld
-Version:	3.16.0
+Version:	3.16.1
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
@@ -117,6 +117,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Jun 20 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.1-1
+- Update to 3.16.1 (RHBZ#1347968)
+
 * Sun May 01 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.0-1
 - Update to 3.16.0 (RHBZ#1321567)
 
