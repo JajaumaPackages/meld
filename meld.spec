@@ -1,6 +1,6 @@
 Name:		meld
-Version:	3.16.1
-Release:	2%{?dist}
+Version:	3.16.2
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -117,6 +117,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sun Jul 31 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.2-1
+- Update to 3.16.2 (RHBZ#1361780)
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.16.1-2
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
