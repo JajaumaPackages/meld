@@ -1,6 +1,6 @@
 Name:		meld
 Version:	3.16.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -24,7 +24,12 @@ Requires:	dbus-python
 Requires:	dbus-x11
 Requires:	patch
 Requires:	pycairo
+%if 0%{?rhel}
+Requires:       pygobject3
+%else
 Requires:	python-gobject
+%endif
+
 Requires:	gsettings-desktop-schemas
 
 BuildArch:	noarch
@@ -101,7 +106,6 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/mime/packages/%{name}.xml
@@ -117,6 +121,11 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sun Oct 09 2016 Thorsten Leemhuis <thl@fedoraproject.org> 3.16.3-2
+- mention COPYING and NEWS only once in file section
+- Conditionalize the dep on python-gobject to make spec file work on
+  rhel and fedora
+
 * Thu Sep 29 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.3-1
 - Update to 3.16.3 (RHBZ#1380050)
 
