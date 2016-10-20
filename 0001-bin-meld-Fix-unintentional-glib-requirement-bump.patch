@@ -1,0 +1,32 @@
+From ac8220ca0908bab3fc97f5ef1b53a652d34f539c Mon Sep 17 00:00:00 2001
+From: Kai Willadsen <kai.willadsen@gmail.com>
+Date: Sun, 16 Oct 2016 06:06:29 +1000
+Subject: [PATCH] bin/meld: Fix unintentional glib requirement bump
+
+GLib.log_set_handler() is only available in 2.46, and I definitely
+didn't intend that version bump.
+---
+ bin/meld | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/bin/meld b/bin/meld
+index bafb4e0..bc6a4df 100755
+--- a/bin/meld
++++ b/bin/meld
+@@ -252,7 +252,12 @@ def setup_glib_logging():
+ 
+     def log_adapter(domain, level, message, user_data):
+         log.log(levels[level], message)
+-    GLib.log_set_handler(log_domain, level_flag, log_adapter, None)
++
++    try:
++        GLib.log_set_handler(log_domain, level_flag, log_adapter, None)
++    except AttributeError:
++        # Only present in glib 2.46+
++        pass
+ 
+ 
+ def environment_hacks():
+-- 
+2.9.3
+
