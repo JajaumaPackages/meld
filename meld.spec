@@ -1,6 +1,6 @@
 Name:		meld
 Version:	3.16.3
-Release:	2%{?dist}
+Release:	2%{?dist}.1
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -26,6 +26,9 @@ Requires:	patch
 Requires:	pycairo
 %if 0%{?rhel}
 Requires:       pygobject3
+# avoid https://bugzilla.gnome.org/show_bug.cgi?id=772678 with below patch from 
+# https://github.com/GNOME/meld/commit/ac8220ca0908bab3fc97f5ef1b53a652d34f539c
+Patch100:         0001-bin-meld-Fix-unintentional-glib-requirement-bump.patch
 %else
 Requires:	python-gobject
 %endif
@@ -50,6 +53,9 @@ allows merges. The margins show location of changes for easy navigation.
 
 %prep
 %setup -q
+%if 0%{?rhel}
+%patch100 -p1
+%endif
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
@@ -121,6 +127,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu Oct 20 2016 Thorsten Leemhuis <thl@fedoraproject.org> 3.16.3-2.1
+- Add patch to make meld work on el7
+
 * Sun Oct 09 2016 Thorsten Leemhuis <thl@fedoraproject.org> 3.16.3-2
 - mention COPYING and NEWS only once in file section
 - Conditionalize the dep on python-gobject to make spec file work on
