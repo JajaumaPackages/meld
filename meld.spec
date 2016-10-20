@@ -1,12 +1,12 @@
 Name:		meld
-Version:	3.13.3
-Release:	1%{?dist}
+Version:	3.16.3
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
 License:	GPLv2+
 URL:		http://meldmerge.org/
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.13/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/%{name}/3.16/%{name}-%{version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -14,6 +14,7 @@ BuildRequires:	intltool
 BuildRequires:	itstool
 BuildRequires:	python2-devel
 BuildRequires:	perl(XML::Parser)
+BuildRequires:	libappstream-glib
 
 Requires:	glib2 >= 2.34.0
 Requires:	gtk3 >= 3.6.0
@@ -23,8 +24,13 @@ Requires:	dbus-python
 Requires:	dbus-x11
 Requires:	patch
 Requires:	pycairo
+%if 0%{?rhel}
+Requires:       pygobject3
+%else
+Requires:	python-gobject
+%endif
+
 Requires:	gsettings-desktop-schemas
-Requires:	pygobject3
 
 BuildArch:	noarch
 
@@ -61,6 +67,16 @@ desktop-file-install \
   --remove-category="Application" \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop \
 
+# Update the screenshot shown in the software center
+#
+# NOTE: It would be *awesome* if this file was pushed upstream.
+#
+# See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
+#
+appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/meld.appdata.xml \
+  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/a.png \
+  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/b.png 
+
 %find_lang %{name} --with-gnome
 
 
@@ -90,7 +106,6 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/mime/packages/%{name}.xml
@@ -106,15 +121,58 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sun Oct 09 2016 Thorsten Leemhuis <thl@fedoraproject.org> 3.16.3-2
+- mention COPYING and NEWS only once in file section
+- Conditionalize the dep on python-gobject to make spec file work on
+  rhel and fedora
+
+* Thu Sep 29 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.3-1
+- Update to 3.16.3 (RHBZ#1380050)
+
+* Sun Jul 31 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.2-1
+- Update to 3.16.2 (RHBZ#1361780)
+
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.16.1-2
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
+* Mon Jun 20 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.1-1
+- Update to 3.16.1 (RHBZ#1347968)
+
+* Sun May 01 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.0-1
+- Update to 3.16.0 (RHBZ#1321567)
+
+* Tue Mar 29 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.15.2-1
+- Update to 3.15.2 (RHBZ#1321567)
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 3.15.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Fri Dec 18 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.15.1-1
+- Update to 3.15.1 (RHBZ#1291664)
+
+* Mon Oct 05 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.15.0-1
+- Update to 3.15.0 (RHBZ#1268659)
+
+* Mon Sep 28 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.14.0-2
+- add dependency to python-gobject (RHBZ#1266389)
+
+* Mon Jul 27 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.14.0-1
+- Update to 3.14.0 (RHBZ#1246475)
+
 * Mon Jul 13 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.13.3-1
 - Update to 3.13.3 (RHBZ#1242225)
 
-* Sun Jul 05 2015 Dominic Hopf <dmaphy@fedoraproject.org> - 3.13.2-1
-- Update to 3.13.2
+* Sun Jul 05 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.13.2-1
+- Update to 3.13.1 (RHBZ#1239300)
 
-* Tue Jun 02 2015 Dominic Hopf <dmaphy@fedoraproject.org> - 3.13.1-1
-- Update to 3.13.1
-- Require pygobject3 (thanks thm for reporting)
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.13.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Fri Apr 24 2015 Dominic Hopf <dmaphy@fedoraproject.org> 3.13.1-1
+- Update to 3.13.1 (RHBZ#1214727)
+
+* Mon Mar 30 2015 Richard Hughes <rhughes@redhat.com> - 3.13.0-3
+- Use better AppData screenshots
 
 * Fri Feb 20 2015 Lubomir Rintel <lkundrak@v3.sk> - 3.13.0-2
 - Add missing dependencies (Pavel Alexeev, #1192623)
