@@ -1,5 +1,5 @@
 Name:		meld
-Version:	3.16.3
+Version:	3.16.4
 Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
@@ -12,7 +12,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
 BuildRequires:	itstool
-BuildRequires:	python2-devel
+BuildRequires:	python3-devel
 BuildRequires:	perl(XML::Parser)
 BuildRequires:	libappstream-glib
 
@@ -24,12 +24,18 @@ Requires:	dbus-python
 Requires:	dbus-x11
 Requires:	patch
 Requires:	pycairo
-Requires:	python-gobject
+%if 0%{?rhel}
+Requires:   pygobject3
+%else
+Requires:	pygobject3-devel
+%endif
+
 Requires:	gsettings-desktop-schemas
 
 BuildArch:	noarch
 
 Provides:	mergetool
+Provides:	difftool
 
 
 %description
@@ -47,10 +53,13 @@ allows merges. The margins show location of changes for easy navigation.
 %setup -q
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
+CFLAGS="$RPM_OPT_FLAGS" %{__python3} setup.py build
 
 %install
-%{__python} setup.py --no-update-icon-cache --no-compile-schemas install --root $RPM_BUILD_ROOT
+# Remove duplicated doc directories (RHBZ#1261341)
+rm -rf /usr/share/doc/meld*
+
+%{__python3} setup.py --no-update-icon-cache --no-compile-schemas install --root $RPM_BUILD_ROOT
 
 desktop-file-install \
 %if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 6)
@@ -70,7 +79,7 @@ desktop-file-install \
 #
 appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/meld.appdata.xml \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/a.png \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/b.png 
+  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/b.png
 
 %find_lang %{name} --with-gnome
 
@@ -101,7 +110,6 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/mime/packages/%{name}.xml
@@ -109,7 +117,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %{_datadir}/appdata/*%{name}.appdata.xml
 %{_datadir}/icons/hicolor/*/*/*.*
 %{_datadir}/icons/HighContrast/*/apps/%{name}.*
-%{python2_sitelib}/*
+%{python3_sitelib}/*
 %doc %{_datadir}/doc/%{name}-%{version}/COPYING
 %doc %{_datadir}/doc/%{name}-%{version}/NEWS
 %{_datadir}/glib-2.0/schemas/org.gnome.meld.gschema.xml
@@ -117,7 +125,16 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
-* Sun Jul 31 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.3-1
+* Sun Dec 18 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.4-1
+- Update to 3.16.4 and Python3 (RHBZ#1405732)
+- Remove duplicated doc directories (RHBZ#1261341)
+
+* Sun Oct 09 2016 Thorsten Leemhuis <thl@fedoraproject.org> 3.16.3-2
+- mention COPYING and NEWS only once in file section
+- Conditionalize the dep on python-gobject to make spec file work on
+  rhel and fedora
+
+* Thu Sep 29 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.3-1
 - Update to 3.16.3 (RHBZ#1380050)
 
 * Sun Jul 31 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.2-1
@@ -182,17 +199,17 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 * Sat Oct 04 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.12.0-1
 - Update to 3.12.0
 
-* Fri Sep 19 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.4-1 
+* Fri Sep 19 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.4-1
 - Update to 3.11.4
 
-* Fri Sep 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.3-1 
+* Fri Sep 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.3-1
 - Update to 3.11.3
 
 * Mon Sep 08 2014 Rex Dieter <rdieter@fedoraproject.org> - 3.11.2-2
 - update mime scriptlet
 - drop added dep for icon scriptlets, see https://fedoraproject.org/wiki/Packaging:ScriptletSnippets?rd=Packaging/ScriptletSnippets#Icon_Cache
 
-* Sat Jul 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.2-1 
+* Sat Jul 12 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.2-1
 - Update to 3.11.2
 
 * Wed Jun 11 2014 Dominic Hopf <dmaphy@fedoraproject.org> - 3.11.1-2
