@@ -1,6 +1,6 @@
 Name:		meld
-Version:	3.16.3
-Release:	2%{?dist}.1
+Version:	3.16.4
+Release:	1%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -127,6 +127,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Tue Mar 28 2016 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.4-1
+- Update to 3.16.4 (RHBZ#1436459)
+
 * Thu Oct 20 2016 Thorsten Leemhuis <thl@fedoraproject.org> 3.16.3-2.1
 - Add patch to make meld work on el7
 
