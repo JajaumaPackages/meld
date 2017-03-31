@@ -121,7 +121,6 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/mime/packages/%{name}.xml
@@ -129,6 +128,8 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %{_datadir}/appdata/*%{name}.appdata.xml
 %{_datadir}/icons/hicolor/*/*/*.*
 %{_datadir}/icons/HighContrast/*/apps/%{name}.*
+%doc %{_datadir}/doc/%{name}/COPYING
+%doc %{_datadir}/doc/%{name}/NEWS
 %{python2_sitelib}/*
 %{_datadir}/glib-2.0/schemas/org.gnome.meld.gschema.xml
 %{_mandir}/man1/meld.1.gz
