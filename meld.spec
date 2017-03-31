@@ -1,6 +1,6 @@
 Name:		meld
 Version:	3.16.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Visual diff and merge tool
 
 Group:		Development/Tools
@@ -26,9 +26,9 @@ Requires:	patch
 Requires:	pycairo
 %if 0%{?rhel}
 Requires:       pygobject3
-# avoid https://bugzilla.gnome.org/show_bug.cgi?id=772678 with below patch from 
+# avoid https://bugzilla.gnome.org/show_bug.cgi?id=772678 with below patch from
 # https://github.com/GNOME/meld/commit/ac8220ca0908bab3fc97f5ef1b53a652d34f539c
-Patch100:         0001-bin-meld-Fix-unintentional-glib-requirement-bump.patch
+#Patch100:         0001-bin-meld-Fix-unintentional-glib-requirement-bump.patch
 %else
 Requires:	python-gobject
 %endif
@@ -43,19 +43,20 @@ Provides:	mergetool
 %description
 Meld is a visual diff and merge tool targeted at developers. It helps you
 compare files, directories, and version controlled projects. It provides two-
-and three-way comparison of both files and directories, and the tabbed interface
-allows you to open many diffs at once.
+and three-way comparison of both files and directories, and the tabbed
+interface allows you to open many diffs at once.
+
 Meld has has support for many popular version control systems including Git,
-Mercurial, Bazaar, SVN and CVS. The diff viewer lets you edit files in place
+Mercurial, Bazaar, SVN and CVS.  The diff viewer lets you edit files in place
 (diffs update dynamically), and a middle column shows detailed changes and
 allows merges. The margins show location of changes for easy navigation.
 
 
 %prep
 %setup -q
-%if 0%{?rhel}
-%patch100 -p1
-%endif
+#%if 0%{?rhel}
+#%patch100 -p1
+#%endif
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
@@ -73,6 +74,8 @@ desktop-file-install \
   --remove-category="Application" \
   ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop \
 
+mv ${RPM_BUILD_ROOT}/%{_datadir}/doc/%{name}-%{version} ${RPM_BUILD_ROOT}/%{_datadir}/doc/%{name}
+
 # Update the screenshot shown in the software center
 #
 # NOTE: It would be *awesome* if this file was pushed upstream.
@@ -81,9 +84,15 @@ desktop-file-install \
 #
 appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/meld.appdata.xml \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/a.png \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/b.png 
+  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/meld/b.png
 
 %find_lang %{name} --with-gnome
+
+%pre
+# Remove duplicated doc directories (RHBZ#1261341)
+if [ $1 -ge 1 ] ; then
+  rm -rf %{_datadir}/doc/%{name}*
+fi
 
 
 %post
@@ -112,6 +121,7 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
+%doc COPYING NEWS
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/mime/packages/%{name}.xml
@@ -120,13 +130,15 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %{_datadir}/icons/hicolor/*/*/*.*
 %{_datadir}/icons/HighContrast/*/apps/%{name}.*
 %{python2_sitelib}/*
-%doc %{_datadir}/doc/%{name}-%{version}/COPYING
-%doc %{_datadir}/doc/%{name}-%{version}/NEWS
 %{_datadir}/glib-2.0/schemas/org.gnome.meld.gschema.xml
 %{_mandir}/man1/meld.1.gz
 
 
 %changelog
+* Fri Mar 31 2017 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.4-2
+- Comment out obsolete patch
+- Fix issues with documation files in wrong paths here as well
+
 * Tue Mar 28 2017 Dominic Hopf <dmaphy@fedoraproject.org> 3.16.4-1
 - Update to 3.16.4 (RHBZ#1436459)
 
